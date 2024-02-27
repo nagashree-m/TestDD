@@ -92,7 +92,7 @@ const EditUser = ({ user, onClose, setUsers }) => {
           {renderTextField("Phone", "phone")}
           {renderTextField("Email", "email")}
           <Box mt={1} gap={3} display="flex" alignItems="center" p={0}>
-            <button variant="contained" color="primary" onClick={handleSave}>
+            <button variant="contained" color="primary" onClick={handleSave} data-testid="save">
               Save
             </button>
             <button variant="contained" color="default" onClick={handleCancel}>

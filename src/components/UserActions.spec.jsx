@@ -54,4 +54,20 @@ describe("UserActions Component", () => {
 
     expect(mockOnDelete).toHaveBeenCalledWith(mockUser.id);
   });
+  test("should have defaultProps onEdit", () => {
+    expect(UserActions.defaultProps.onEdit).toBeDefined();
+  });
+
+  test("expected defaultProps", () => {
+    const result = UserActions.defaultProps.onEdit();
+    expect(result).toBe(undefined);
+  });
+  test("should have defaultProps onDelete", () => {
+    expect(UserActions.defaultProps.onDelete).toBeDefined();
+  });
+
+  test("expected defaultProps", () => {
+    const result = UserActions.defaultProps.onDelete();
+    expect(result).toBe(undefined);
+  });
 });

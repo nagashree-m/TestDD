@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "1",
-      "name": "John Doe",
+      "name": "New Name",
       "address": "123 Main St",
       "phone": "555-1234",
       "email": "john@example.com"

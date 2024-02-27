@@ -10,9 +10,11 @@ global.fetch = jest.fn(() =>
   })
 );
 
+
 describe("AddContact Component", () => {
   test("renders AddContact component and adds a contact", async () => {
     const mockSetUsers = jest.fn();
+    const mockErrorLog = jest.spyOn(console, "error").mockImplementation(() => {});
 
     render(<AddContact setUsers={mockSetUsers} />);
 
@@ -50,40 +52,28 @@ describe("AddContact Component", () => {
     });
 
     expect(mockSetUsers).toHaveBeenCalledWith(expect.any(Function));
-    mockSetUsers((prevUsers) => {
-      expect(prevUsers).toEqual([]);
-      return [
-        ...prevUsers,
-        {
-          name: "John Doe",
-          address: "123 Main St",
-          phone: "555-1234",
-          email: "john.doe@example.com",
-        },
-      ];
-    });
+    expect(mockErrorLog).toHaveBeenCalledWith("Error adding contact:", expect.any(Error));
+  const setUsersCallback = mockSetUsers.mock.calls[0][0];
+  const initialContacts = []; 
 
-    // expect(mockSetUsers).toHaveBeenCalledWith((prevUsers) =>
-    //   expect(prevUsers).toEqual([])
-    // );
+  
+  const updatedContacts = setUsersCallback(initialContacts);
 
-    // expect(mockSetUsers).toHaveBeenCalledWith((prevUsers) =>
-    //   expect(prevUsers).toEqual([
-    //     {
-    //       name: "John Doe",
-    //       address: "123 Main St",
-    //       phone: "555-1234",
-    //       email: "john.doe@example.com",
-    //     },
-    //   ])
-    // );
+ 
+  const newContact = {
+    name: "John Doe",
+    address: "123 Main St",
+    phone: "555-1234",
+    email: "john.doe@example.com",
+  };
+  expect(updatedContacts).toEqual([...initialContacts, newContact]);
 
     expect(screen.getByPlaceholderText("Enter a name...")).toHaveValue("");
     expect(screen.getByPlaceholderText("Enter an address...")).toHaveValue("");
     expect(screen.getByPlaceholderText("Enter a phone number...")).toHaveValue(
       ""
     );
-    expect(screen.getByPlaceholderText("Enter an email...")).toHaveValue("");
+    expect(screen.getByPlaceholderText("Enter an email...")).toHaveValue(""); 
   });
 
   test("should have defaultProps setUsers", () => {
@@ -94,4 +84,6 @@ describe("AddContact Component", () => {
     const result = AddContact.defaultProps.setUsers();
     expect(result).toBe(undefined);
   });
+
+  
 });

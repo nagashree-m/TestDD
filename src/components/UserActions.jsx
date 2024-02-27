@@ -12,10 +12,11 @@ const UserActions = ({ user, onEdit, onDelete }) => {
         data-testid="edit-icon"
         onClick={() => onEdit(user)}
         size={largeIconSize}
+        style={{cursor:'pointer'}}
       />
       <AiFillDelete
         data-testid="delete-icon"
-        onClick={() => onDelete(user.id)}
+        onClick={() => onDelete(user.id)} 
         size={largeIconSize}
       />
     </div>
@@ -34,10 +35,9 @@ UserActions.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
-UserActions.propTypes = {
+UserActions.defaultProps = {
   user: {},
   onEdit: () => {},
   onDelete: () => {},
 };
-
 export default UserActions;
